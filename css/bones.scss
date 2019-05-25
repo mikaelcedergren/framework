@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,500,500i,700,700i');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,700");
 
 @mixin transition($args...) {
   -webkit-transition: $args;
@@ -9,11 +10,11 @@
 }
 
 @mixin transform($transforms) {
-	   -moz-transform: $transforms;
-	     -o-transform: $transforms;
-	    -ms-transform: $transforms;
-	-webkit-transform: $transforms;
-          transform: $transforms;
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
 }
 
 @mixin rotate($deg) {
@@ -21,28 +22,45 @@
 }
 
 @mixin scale($scale) {
-	 @include transform(scale($scale));
+  @include transform(scale($scale));
 }
 
 @mixin translate($x, $y) {
-   @include transform(translate($x, $y));
+  @include transform(translate($x, $y));
+}
+
+@mixin font-smooth() {
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 $primary: #ff536c;
+$accent: #4cc8ea;
 $primary-offset: adjust-hue($primary, -50);
 $primary-darken: mix($primary, black, 90%);
 $complement: #82f34f;
-$white: #fff;
-$black: #555;
-$radius: 5px;
+$white: #ffffff;
+$black: #555555;
+$radius: 8px;
 $font-size: 16px;
 $gutter: $font-size;
+$light: 300;
+$regular: 400;
+$medium: 500;
 $bold: 700;
 $responsive-width: 750px;
+$fontFamily: "Montserrat", sans-serif;
+$fontFamilyHeading: "Raleway", sans-serif;
 
-html, body {
-  font-family: 'Fira Sans', sans-serif;
+html,
+body {
+  font-family: $fontFamily;
   font-size: $font-size;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  margin: 0;
+  padding: 2rem;
+  @include font-smooth();
 }
 
 * {
@@ -51,133 +69,76 @@ html, body {
   -webkit-transform-style: preserve-3d;
 }
 
-.row {
-  box-sizing: border-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex: 0 1 auto;
-  -webkit-box-flex: 0;
-  flex: 0 1 auto;
-  -ms-flex-direction: row;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-  -moz-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-
-  @media (max-width: $responsive-width) {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-
-    .gridbox {
-      width: 100%;
-      margin-right: 0;
-      margin-left: 0;
-      margin-bottom: 1rem;
-
-    }
-
-    &.fixed {
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-      flex-direction: row;
-      -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-
-      .gridbox {
-        margin-right: 0.5rem;
-        margin-left: 0.5rem;
-        margin-bottom: 0;
-
-        &:first-child {
-          margin-left: 0;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
+h1,
+h2,
+h3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: $fontFamilyHeading;
+  letter-spacing: -0.02em;
+  font-weight: $light;
 }
 
-.col {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  box-sizing: border-box;
-  -ms-flex: 1 0 auto;
-  -webkit-box-flex: 1;
-  flex: 0 0 auto;
-  flex-grow: 1;
-  flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  -ms-flex-positive: 1;
+img {
   max-width: 100%;
-  align-self: center;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &.top {
-    align-self: flex-start;
-  }
-
-  &.bottom {
-    align-self: flex-end;
-  }
-
-  &.equal-height {
-    -ms-flex-item-align: stretch;
-    -ms-grid-row-align: stretch;
-    align-self: stretch;
-  }
-
-  &.min {
-    flex-grow: 0;
-    -ms-flex: 1 1 0%;
-  }
 }
 
-button {
-  @include transition(all 0.25s ease-out);
-  cursor: pointer;
-  text-rendering: optimizeLegibility;
-  font-size: 1rem;
-  color: $white;
-  background-color: $primary;
-  box-shadow: 0px 0px 0px rgba(black, 0.2);
-  padding: $gutter $gutter*2;
-  border-radius: $radius;
-  border: none;
-  border: 1px solid rgba(black, 0.1);
-  border-bottom: 4px solid rgba(black, 0.2);
-  &:hover {
-    @include translate(0, -2px);
-    border-bottom: 4px solid rgba(black, 0.1);
-    background-color: mix($primary, white, 90%);
-    box-shadow: 0px 4px 8px rgba(black, 0.2);
-  }
-  &:active {
-    background-color: mix($primary, black, 90%);
-    border-bottom: 1px solid rgba(black, 0.1);
-    border-top: 4px solid rgba(black, 0.1);
-    box-shadow: 0px 0px 0px rgba(black, 0.2);
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-auto-rows: min-content;
+  justify-items: stretch;
+  grid-auto-flow: dense;
 
+  &.grid-gap-large {
+    grid-gap: 2rem;
+  }
+
+  &.grid-gap-none {
+    grid-gap: 0;
+  }
+
+  &.grid-first-column-large {
+    & > div:first-child {
+      grid-column: auto / span 2;
+    }
+  }
+
+  &.grid-last-column-large {
+    & > div:last-child {
+      grid-column: auto / span 2;
+    }
+  }
+
+  &.grid-fixed {
+    grid-auto-flow: column;
+  }
+
+  &.grid-middle {
+    align-items: center;
+  }
+
+  &.grid-bottom {
+    align-items: bottom;
+  }
+
+  &.grid-equal {
+    align-items: stretch;
+  }
+
+  @media only screen and (max-width: 480px) {
+    grid-template-columns: none;
+
+    & > div {
+      grid-column: 1 / -1 !important;
+    }
+  }
+
+  // min-content
+  // Just for testing
+  & > * {
+    background-color: rgba(black, 0.1);
+    padding: 1rem;
   }
 }
